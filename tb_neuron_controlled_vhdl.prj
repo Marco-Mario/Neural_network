@@ -1,9 +1,1 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  \
-"../../../../Neurone.srcs/sources_1/new/ROM.vhd" \
-"../../../../Neurone.srcs/sources_1/new/Sig_ROM.vhd" \
-"../../../../Neurone.srcs/sources_1/new/Neurone.vhd" \
-"../../../../Neurone.srcs/sim_1/new/tb_neuron.vhd" \
 
-# Do not sort compile order
-nosort
