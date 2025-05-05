@@ -1,0 +1,104 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 19.03.2025 14:08:30
+-- Design Name: 
+-- Module Name: tb_ROM - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use std.textio.all;
+
+entity rom_tb is
+end entity;
+
+architecture behavior of rom_tb is
+    constant data_width : integer := 16;
+    constant addr_width : integer := 10;
+    constant filename   : string  := "C:\\Users\\marco\\OneDrive\\Desktop\\uni\\Magistrale\\Digitale 2\\Tesina\\ROM\\rom_data.txt";
+
+    signal address : std_logic_vector(addr_width-1 downto 0);
+    signal clk:std_logic;
+    signal data    : std_logic_vector(data_width-1 downto 0);
+
+    -- Component declaration
+    component rom is
+        generic (
+            data_width : integer := 8;
+            addr_width : integer := 4;
+            filename   : string  := "rom_data.txt"
+        );
+        port (
+            address : in  std_logic_vector(addr_width-1 downto 0);
+            clk: std_logic;
+            data    : out std_logic_vector(data_width-1 downto 0)
+        );
+    end component;
+
+begin
+    -- Instantiate ROM
+    uut: rom
+        generic map (
+            data_width => data_width,
+            addr_width => addr_width,
+            filename   => filename
+        )
+        port map (
+            address => address,
+            clk=>clk,
+            data    => data
+        );
+    clk_process: process
+    begin
+        clk <= '0';
+        wait for 5 ns;
+        clk <= '1';
+        wait for 5 ns;
+    end process;
+
+    -- Stimulus process
+    process
+    begin
+    
+
+        -- Test all addresses
+        for i in 0 to 2**addr_width - 1 loop
+            address <= std_logic_vector(to_unsigned(i, addr_width));
+            wait for 20 ns;
+            
+        end loop;
+
+       
+       
+
+   
+        wait;
+    end process;
+end architecture behavior;
